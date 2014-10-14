@@ -8,6 +8,9 @@
  */
 package projeto;
 
+import java.util.Scanner;
+import projeto.io.FileManager;
+
 /**
  * Chamada dos métodos principais para execução da aplicação.
  *
@@ -16,10 +19,23 @@ package projeto;
 public class Main {
 
     /**
-     * @param args the command line arguments
+     * @param args Argumentos de entrada do programa
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        //Leitura do nome do arquivo de entrada
+        String arquivo;
+        if (args.length == 0) {
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Informe o caminho do arquivo:");
+            arquivo = scanner.nextLine();
+        } else {
+            arquivo = args[0];
+        }
+
+        //Manipulação do arquivo
+        FileManager file = new FileManager(arquivo);
+        System.out.println(file.getArquivo());
+
     }
 
 }
