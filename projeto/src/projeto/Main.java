@@ -8,8 +8,12 @@
  */
 package projeto;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 import projeto.io.FileManager;
+import projeto.util.Util;
 
 /**
  * Chamada dos métodos principais para execução da aplicação.
@@ -33,8 +37,23 @@ public class Main {
         }
 
         //Manipulação do arquivo
-        FileManager file = new FileManager(arquivo);
-        System.out.println(file.getArquivo());
+        FileManager file;
+        try {
+            file = new FileManager(arquivo);
+            //Ler arquivo
+            System.out.println("Lendo...");
+            ArrayList<String> arq = file.lerArquivo();
+            //System.out.println("Tamanho do arquivo: " + arq.size());
+
+            //Tratar as urls
+            System.out.println("Tratando...");
+            HashMap<String, String> urls = Util.tratarUrl(arq);
+            //System.out.println("Urls válidas: " + urls.size());
+
+        } catch (IOException e) {
+            System.err.println("Erro na leitura do arquivo.");
+            System.exit(0);
+        }
 
     }
 
