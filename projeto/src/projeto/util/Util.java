@@ -10,6 +10,8 @@ package projeto.util;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
+import java.util.Set;
 
 /**
  * Classe utilitára que contém métodos para o tratamento do dados de entrada.
@@ -34,18 +36,37 @@ public class Util {
     }
 
     /**
-     * Realiza o tratamento de cada url do arquivo e remve as Urls duplicadas.
+     * Realiza o tratamento de cada url do arquivo e remove as Urls duplicadas.
      *
      * @param arquivo
      * @return Tabela com as urls válidas
      */
-    public static HashMap<String, String> tratarUrl(ArrayList<String> arquivo) {
-        HashMap<String, String> urls = new HashMap<>();
+    public static Set<String> tratarUrl(ArrayList<String> arquivo) {
+        HashMap<String, String> tabela = new HashMap<>();
         String url;
         for (String arq : arquivo) {
             url = formatarUrl(arq);
-           urls.put(url, "");
+            if (url.length() > 4) {
+                tabela.put(url, url);
+            }
         }
+        Set urls = tabela.keySet();
+
         return urls;
+    }
+
+    /**
+     * Retira todos os caracteres especiais de uma chave
+     *
+     * @param chave
+     * @return
+     */
+    public static String formatarChave(String chave) {
+        chave = chave.replaceAll("\\.", "B");
+        chave = chave.replaceAll("/", "A");
+        chave = chave.replaceAll("=", "T");
+        chave = chave.replaceAll("-", "z");
+        chave = chave.replaceAll("\\+", "4");
+        return chave;
     }
 }
