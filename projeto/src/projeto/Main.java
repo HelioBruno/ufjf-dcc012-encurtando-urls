@@ -10,8 +10,8 @@ package projeto;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Scanner;
+import java.util.Set;
 import projeto.io.FileManager;
 import projeto.util.Util;
 
@@ -47,7 +47,7 @@ public class Main {
 
             //Tratar as urls
             System.out.println("Tratando...");
-            HashMap<String, String> urls = Util.tratarUrl(arq);
+           // Set<String> urls = Util.tratarUrl(arq);
             //System.out.println("Urls válidas: " + urls.size());
 
         } catch (IOException e) {
