@@ -9,11 +9,17 @@
 package projeto.io;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Set;
+import projeto.hash.Hash;
 
 /**
  * Classe responsável por todas as manipulações de arquivos no sistema.
@@ -31,7 +37,7 @@ public class FileManager {
         this.arquivo = null;
     }
 
-    public FileManager(String arquivo) throws IOException {
+    public FileManager(String arquivo) {
         this.setArquivo(arquivo);
 
     }
@@ -84,6 +90,37 @@ public class FileManager {
             return lista;
         }
         return null;
+    }
+
+    public void criarArquivoTbHash() throws IOException {
+        HashMap<String, String> tabela = Hash.getTburls();
+        if (tabela != null) {
+            File file = new File(System.getProperty("user.dir") + "/tbHash.txt");
+            if (file.exists()) {
+                file.delete();
+            }
+            file.createNewFile();
+            try (
+                    FileWriter fw = new FileWriter(file, true)) {
+                BufferedWriter bw;
+                bw = new BufferedWriter(fw);
+
+                Set<String> chaves = tabela.keySet();
+                Iterator<String> it = chaves.iterator();
+                String chave;
+                while (it.hasNext()) {
+                    chave = it.next();
+                    if (chave != null) {
+                        bw.write(chave + " - " + tabela.get(chave));
+                        bw.newLine();
+                    }
+                }
+                bw.close();
+            }
+        } else {
+            System.err.println("Arquivo não foi criado, pois a tabela de hash esta vazia.");
+            System.exit(0);
+        }
     }
 
 }
