@@ -39,7 +39,8 @@ public class TrieBB implements Trie {
 
     /**
      * Insere um novo nó na árvore
-     * @param info 
+     *
+     * @param info
      */
     private void inserir(No info) {
         if (this.info == null) {
@@ -60,7 +61,7 @@ public class TrieBB implements Trie {
     @Override
     public String buscar(String chave) {
         No no = this.search(chave);
-        if (chave != null) {
+        if (no != null) {
             return no.getUrl();
         } else {
             return "Chave não encontrada.";
@@ -69,16 +70,22 @@ public class TrieBB implements Trie {
 
     /**
      * Busca uma chave na árvore
+     *
      * @param chave
-     * @return Nó da chave pesquisada 
+     * @return Nó da chave pesquisada
      */
     private No search(String chave) {
         if (this.info == null) {
             return null;
-        } else if (chave.compareTo(this.info.getChave()) < 0) {
+        }
+        if (this.info.getChave().equals(chave)) {
+            return this.info;
+        } else if (this.esquerdo != null && chave.compareTo(this.info.getChave()) < 0) {
             return this.esquerdo.search(chave);
-        } else {
+        } else if (this.direito != null) {
             return this.direito.search(chave);
+        } else {
+            return null;
         }
     }
 
