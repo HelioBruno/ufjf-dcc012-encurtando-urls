@@ -8,6 +8,7 @@
  */
 package projeto.trie.abb;
 
+import java.util.Arrays;
 import projeto.trie.Trie;
 
 /**
@@ -33,8 +34,7 @@ public class TrieBB implements Trie {
 
     @Override
     public void inserir(String dados) {
-        String[] dado = dados.split("|");
-        this.inserir(new No(dado[0], dado[1]));
+        this.inserir(new No(dados.split(" ")[0], dados.split(" ")[1]));
     }
 
     /**
